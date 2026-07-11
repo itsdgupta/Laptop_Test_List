@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-color: #00adb5;
+            --border-color: #2d2d2d;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .main-task-group {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1.25rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .subtask-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-left: 2rem;
+            border-left: 1px solid var(--border-color);
+        }
+
+        input[type="checkbox"] {
+            accent-color: var(--accent-color);
+            width: 1.1rem;
+            height: 1.1rem;
+            margin-top: 0.2rem;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            word-break: break-word;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Checked Visual States */
+        .completed > label, 
+        .completed > label a {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dashboard Tasks</h1>
+        <div id="todo-app" class="task-list"></div>
+    </div>
+
+    <script>
+        // ==========================================
+        // DUMMY DATA SETTING - EDIT YOUR TASKS HERE
+        // ==========================================
+        const TASKS_DATA = [
+            {
+                id: "task_1",
+                title: "Set up project repository",
+                link: "https://github.com",
+                subtasks: [
+                    { id: "sub_1_1", title: "Initialize git config", link: "" },
+                    { id: "sub_1_2", title: "Create initial README.md", link: "" },
+                    { id: "sub_1_3", title: "Push main branch to origin", link: "" }
+                ]
+            },
+            {
+                id: "task_2",
+                title: "Review documentation resources",
+                link: "",
+                subtasks: [
+                    { id: "sub_2_1", title: "Read MDN Web Docs on localStorage", link: "https://developer.mozilla.org" },
+                    { id: "sub_2_2", title: "Check CSS variables spec", link: "" }
+                ]
+            },
+            {
+                id: "task_3",
+                title: "Deploy staging environment",
+                link: "https://vercel.com",
+                subtasks: [
+                    { id: "sub_3_1", title: "Configure build settings", link: "" },
+                    { id: "sub_3_2", title: "Run SSL certification test", link: "" }
+                ]
+            }
+        ];
+        // ==========================================
+
+        const LOCAL_STORAGE_KEY = "task_list_app_state";
+
+        // Load state from localStorage or default to empty object
+        let checkboxState = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {};
+
+        function saveState() {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(checkboxState));
+        }
+
+        function createTextOrLinkNode(title, link) {
+            if (link) {
+                const a = document.createElement('a');
+                a.href = link;
+                a.target = "_blank";
+                a.rel = "noopener";
+                a.textContent = title;
+                return a;
+            }
+            return document.createTextNode(title);
+        }
+
+        function renderApp() {
+            const container = document.getElementById('todo-app');
+            container.innerHTML = '';
+
+            TASKS_DATA.forEach(mainTask => {
+                // Group element containing main task and its subtasks
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'main-task-group';
+
+                // Main Task Item
+                const mainTaskItem = document.createElement('div');
+                mainTaskItem.className = 'task-item';
+                if (checkboxState[mainTask.id]) {
+                    mainTaskItem.classList.add('completed');
+                }
+
+                const mainCheckbox = document.createElement('input');
+                mainCheckbox.type = 'checkbox';
+                mainCheckbox.id = mainTask.id;
+                mainCheckbox.checked = !!checkboxState[mainTask.id];
+                
+                mainCheckbox.addEventListener('change', (e) => {
+                    checkboxState[mainTask.id] = e.target.checked;
+                    if (e.target.checked) {
+                        mainTaskItem.classList.add('completed');
+                    } else {
+                        mainTaskItem.classList.remove('completed');
+                    }
+                    saveState();
+                });
+
+                const mainLabel = document.createElement('label');
+                mainLabel.htmlFor = mainTask.id;
+                mainLabel.appendChild(createTextOrLinkNode(mainTask.title, mainTask.link));
+
+                mainTaskItem.appendChild(mainCheckbox);
+                mainTaskItem.appendChild(mainLabel);
+                groupDiv.appendChild(mainTaskItem);
+
+                // Subtasks Render Container
+                if (mainTask.subtasks && mainTask.subtasks.length > 0) {
+                    const subtaskList = document.createElement('div');
+                    subtaskList.className = 'subtask-list';
+
+                    mainTask.subtasks.forEach(subtask => {
+                        const subTaskItem = document.createElement('div');
+                        subTaskItem.className = 'task-item';
+                        if (checkboxState[subtask.id]) {
+                            subTaskItem.classList.add('completed');
+                        }
+
+                        const subCheckbox = document.createElement('input');
+                        subCheckbox.type = 'checkbox';
+                        subCheckbox.id = subtask.id;
+                        subCheckbox.checked = !!checkboxState[subtask.id];
+
+                        subCheckbox.addEventListener('change', (e) => {
+                            checkboxState[subtask.id] = e.target.checked;
+                            if (e.target.checked) {
+                                subTaskItem.classList.add('completed');
+                            } else {
+                                subTaskItem.classList.remove('completed');
+                            }
+                            saveState();
+                        });
+
+                        const subLabel = document.createElement('label');
+                        subLabel.htmlFor = subtask.id;
+                        subLabel.appendChild(createTextOrLinkNode(subtask.title, subtask.link));
+
+                        subTaskItem.appendChild(subCheckbox);
+                        subTaskItem.appendChild(subLabel);
+                        subtaskList.appendChild(subTaskItem);
+                    });
+
+                    groupDiv.appendChild(subtaskList);
+                }
+
+                container.appendChild(groupDiv);
+            });
+        }
+
+        // Initialize App on Page Load
+        document.addEventListener('DOMContentLoaded', renderApp);
+    </script>
+</body>
+</html>
