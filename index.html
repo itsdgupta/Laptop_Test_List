@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="version" content="2.0">
+    <meta name="version" content="2.3">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List</title>
     <style>
@@ -111,26 +111,150 @@
         const TASKS_DATA = [
             {
                 id: "task_1",
-                title: "Set up project repository",
-                link: "https://github.com",
+                title: "1. Physical Condition",
+                link: "",
                 subtasks: [
-                    { id: "sub_1_1", title: "Initialize git config", link: "" },
-                    { id: "sub_1_2", title: "Create initial README.md", link: "" },
-                    { id: "sub_1_3", title: "Push main branch to origin", link: "" }
+                    { id: "sub_1_1", title: "Check surface", link: "" },
+                    { id: "sub_1_2", title: "Check for crack", link: "" }
                 ]
             },
             {
                 id: "task_2",
-                title: "Review documentation resources",
+                title: "2. Do Setup ()",
                 link: "",
                 subtasks: [
-                    { id: "sub_2_1", title: "Read MDN Web Docs on localStorage", link: "https://developer.mozilla.org" },
-                    { id: "sub_2_2", title: "Check CSS variables spec", link: "" }
+                    { id: "sub_2_1", title: "Select Country as India", link: "" },
+                    { id: "sub_2_2", title: "Select Keyboard Layout as English (India)", link: "" },
+                    { id: "sub_2_3", title: "Skip second layout", link: "" },
+                    { id: "sub_2_4", title: "Connect to WiFi", link: "" },
+                    { id: "sub_2_5", title: "Accept Agreement", link: "" },
+                    { id: "sub_2_6", title: "Name Device as", link: "" },
+                    { id: "sub_2_7", title: "Sign in using MS Account", link: "" },
+                    { id: "sub_2_8", title: "Add Pin as mihon", link: "" },
+                    { id: "sub_2_9", title: "Choose Privacy Settings and only toggle important options only", link: "" },
+                    { id: "sub_2_10", title: "Add info in support page of appears", link: "" },
+                    { id: "sub_2_11", title: "Skip personalization (take image of these options)", link: "" },
+                    { id: "sub_2_12", title: "Click Not Now for allow access for browsing data", link: "" }
                 ]
             },
-                    ];
+            {
+                id: "task_3",
+                title: "3. Series Of Laptop",
+                link: "",
+                subtasks: [
+                    { id: "sub_3_1", title: "On the stick at the back of laptop", link: "" }
+                ]
+            },
+            {
+                id: "task_4",
+                title: "4. Charging",
+                link: "",
+                subtasks: []
+            },
+            {
+                id: "task_5",
+                title: "5. Keys Test",
+                link: "https://www.keytest.io/",
+                subtasks: []
+            },
+            {
+                id: "task_6",
+                title: "6. Processor , Ram , GPU , CPU , Storage",
+                link: "",
+                subtasks: [
+                    { id: "sub_6_1", title: "Open Task Manager using Ctrl+Shift+Esc", link: "" },
+                    { id: "sub_6_2", title: "Click on Performance in Navigation Panel", link: "" },
+                    { id: "sub_6_3", title: "It will give you information such as CPU : i5 13450 HX , GPU0 & GPU1 will show integrated graphics and rtx 3050 6gb vram , Memory will show ram , Disk : 512 gb storage", link: "" }
+                ]
+            },
+            {
+                id: "task_7",
+                title: "7. Check Windows Activation",
+                link: "",
+                subtasks: [
+                    { id: "sub_7_1", title: "Click start button and search settings", link: "" },
+                    { id: "sub_7_2", title: "In settings click System in Nav bar", link: "" },
+                    { id: "sub_7_3", title: "Scroll down and click Activation and see activation status", link: "" }
+                ]
+            },
+            {
+                id: "task_8",
+                title: "8. Keyboard Backlight",
+                link: "",
+                subtasks: [
+                    { id: "sub_8_1", title: "Hold Fn (function key) And click Space Bar", link: "" }
+                ]
+            },
+            {
+                id: "task_9",
+                title: "9. Display Check",
+                link: "",
+                subtasks: [
+                    { id: "sub_9_1", title: "Use bleeding and dead pixels test", link: "https://screentester.io/" },
+                    { id: "sub_9_2", title: "Use colour bending test", link: "https://screentester.io/color-banding-test/" }
+                ]
+            },
+            {
+                id: "task_10",
+                title: "10. Bluetooth",
+                link: "",
+                subtasks: [
+                    { id: "sub_10_1", title: "Settings", link: "" },
+                    { id: "sub_10_2", title: "Click Bluetooth and devices in Nav Bar", link: "" },
+                    { id: "sub_10_3", title: "Toggle on", link: "" },
+                    { id: "sub_10_4", title: "Connect earbuds", link: "" }
+                ]
+            },
+            {
+                id: "task_11",
+                title: "11. Webcam & Mic",
+                link: "https://webcammictest.com/",
+                subtasks: []
+            },
+            {
+                id: "task_12",
+                title: "12. Check Fans",
+                link: "",
+                subtasks: [
+                    { id: "sub_12_1", title: "Do they appear dust free", link: "" }
+                ]
+            },
+            {
+                id: "task_13",
+                title: "13. Track pad",
+                link: "",
+                subtasks: [
+                    { id: "sub_13_1", title: "Cursor moves smoothly, no lag/jumps when dragging finger", link: "" },
+                    { id: "sub_13_2", title: "Tap-to-click and two-finger right-click work", link: "" },
+                    { id: "sub_13_3", title: "Two-finger scroll (vertical + horizontal)", link: "" },
+                    { id: "sub_13_4", title: "Pinch-to-zoom works", link: "" },
+                    { id: "sub_13_5", title: "Palm rejection: rest palm near pad while typing — cursor shouldn't jump", link: "" },
+                    { id: "sub_13_6", title: "Click firmly at all 4 corners — should register everywhere, not just center", link: "" },
+                    { id: "sub_13_7", title: "Check Device Manager > Mice and other pointing devices for yellow warning icon (driver problem)", link: "" }
+                ]
+            },
+            {
+                id: "task_14",
+                title: "14. Run OCCT",
+                link: "",
+                subtasks: [
+                    { id: "sub_14_1", title: "Go to Google Drive folder or go to occt website and download and run exe file", link: "https://drive.google.com/drive/folders/1_9SC0fCpWmCOI4ogntDE9q8mucBaxVCe" },
+                    { id: "sub_14_2", title: "Accept Agreement and Select Stability Test Option", link: "" },
+                    { id: "sub_14_3", title: "Linpack — 8 min", link: "" },
+                    { id: "sub_14_4", title: "3D Adaptive + VRAM {in combined mode} (run together, both checked) — 7 min", link: "" }
+                ]
+            },
+            {
+                id: "task_15",
+                title: "15. Check warranty and bill documents",
+                link: "",
+                subtasks: [
+                    { id: "sub_15_1", title: "Can check on official website using serial number", link: "" }
+                ]
+            }
+        ];
         // ==========================================
-
+        
         const LOCAL_STORAGE_KEY = "task_list_app_state";
 
         // Load state from localStorage or default to empty object
