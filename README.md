@@ -1,1 +1,1 @@
-newlaptop.netlify.app
+https://newlaptop.netlify.app
